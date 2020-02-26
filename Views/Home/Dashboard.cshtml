@@ -1,0 +1,53 @@
+@model Exercise
+<partial name="_HeaderPartial" view-data="ViewData"/>
+<div class="row">
+    <table class="table table-dark">
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>No. of Participants</th>
+            <th>Actions</th>
+        </tr>
+        @{
+            bool there = true;
+            foreach(var item in ViewBag.BigList)
+            {
+                if(item.StartDate >= DateTime.Today)
+                {
+                    <tr>
+                        <td><a href="exercise/@item.ExerciseId">@item.Title</a></td>
+                        <td>@item.StartDate.ToString("d") @item.StartTime.ToString("t")</td>
+                        <td>@item.Duration @item.DurationType</td>
+                        <td>@item.Creator.Name</td>
+                        @{ 
+                            int joined = item.JoinedUsers.Count;
+                            joined++;
+                        }<td>@joined</td>
+                        @{
+                            there = false;
+                            foreach(var itam in item.JoinedUsers){
+                                if(there == false){
+                                    if(itam.UserId == ViewBag.LogUser.UserId){
+                                        there = true;
+                                    }  
+                                }
+                            }
+                            if(item.Creator== ViewBag.LogUser){
+                            <td><a href="deleteExercise/@item.ExerciseId">Delete</a></td>
+                            }
+                            else if(there){
+                                <td><a href="leave/@item.ExerciseId">Leave</a></td>
+                            }
+                            else{
+                                <td><a href="joinExercise/@item.ExerciseId">Join</a></td>
+                            } 
+                        }
+                    </tr>
+                }
+            }
+        }  
+    </table>
+</div>
+<a href="new" class="btn btn-primary">Add New Activity</a>

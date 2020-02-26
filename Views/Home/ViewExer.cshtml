@@ -1,0 +1,51 @@
+@model Exercise
+<partial name="_HeaderPartial" view-data="ViewData"/>
+<div class="row">
+    <div class="col-sm-10">
+        <h1>@ViewBag.ViewExer.Title</h1>
+    </div>
+    <div class="col-sm-2">
+        @{
+            bool there = false;
+            foreach(var item in ViewBag.ViewExer.JoinedUsers){
+                if(there == false){
+                    if(item.UserId == ViewBag.LogUser.UserId){
+                        there = true;
+                    }  
+                }
+            }
+            if(ViewBag.ViewExer.Creator== ViewBag.LogUser){
+                <h3><a href="deleteExercise/@ViewBag.ViewExer.ExerciseId">Delete</a></h3>
+            }
+            else if(there){
+                <h3><a href="leave/@ViewBag.ViewExer.ExerciseId">Leave</a></h3>
+            }
+            else{
+                <h3><a href="joinExercise/@ViewBag.ViewExer.ExerciseId">Join</a></h3>
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <h3>Event Coordinator: @ViewBag.ViewExer.Creator.Name</h3>
+</div>
+<div class="row">
+    <h3>Description:</h3>
+</div>
+<div class="row">
+    <p>@ViewBag.ViewExer.Desc</p>
+</div>
+<div class="row">
+    <h3>Participants: </h3>
+</div>
+
+<div class="row">  
+    <ul>
+        @{
+            foreach (var item in ViewBag.ViewExer.JoinedUsers)
+            {
+                <li>@item.User.Name</li>
+            }
+        }
+    </ul>
+</div>

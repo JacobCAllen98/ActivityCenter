@@ -1,0 +1,49 @@
+@model Exercise
+<partial name="_HeaderPartial" view-data="ViewData"/>
+<div class="row">
+    <h1>Create an Activity</h1>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <form action="createExercise" method="post">
+            <div class="form-group">
+                <label>Title</label>
+                <span asp-validation-for="Title"></span>
+                <input type="text" asp-for="Title" class="form-control">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <label>Start Date</label>
+                    <span asp-validation-for="StartDate"></span>
+                    <input type="date" asp-for="StartDate" class="form-control">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Start Time</label>
+                    <span asp-validation-for="StartTime"></span>
+                    <input type="time" asp-for="StartTime" class="form-control">
+                </div>
+            </div>
+            <label>Duration</label>
+            <div class="row">
+                <div class="form-group col-sm-9">
+                    <span asp-validation-for="Duration"></span>
+                    <input type="text" asp-for="Duration" class="form-control">
+                </div>
+                <div class="form-group col-sm-3">
+                    <span asp-validation-for="DurationType"></span>
+                    <select asp-for="DurationType" class="form-control">
+                        <option value="Minutes">Minutes</option>
+                        <option value="Hours">Hours</option>
+                        <option value="Days">Days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <span asp-validation-for="Desc"></span>
+                <textarea asp-for="Desc" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+</div>
